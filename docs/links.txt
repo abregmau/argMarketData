@@ -1,0 +1,2 @@
+Leer datos de Firestore a una planilla de Google:
+https://www.youtube.com/watch?v=ioYmdv6NUAk

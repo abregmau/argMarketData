@@ -1,0 +1,14 @@
+# Folders
+test/*
+src/keys/*
+
+# NPM
+package-lock.json
+node_modules/*
+
+# Others
+user.cfg
+*.log
+anon.*
+session.*
+test.js

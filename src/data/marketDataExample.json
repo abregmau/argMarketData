@@ -1,0 +1,42 @@
+[
+    {
+        "ticker": { "ars": "CLSIO", "usd": "CLSID", "ccl": "CLSIC" },
+        "lastPrice": {
+            "ars": {
+                "CI": { "value": 1000, "timestamp": 1000 },
+                "t24": { "value": 1000, "timestamp": 1000 },
+                "t48": { "value": 1000, "timestamp": 1000 }
+            },
+            "usd": {
+                "CI": { "value": 1000, "timestamp": 1000 },
+                "t24": { "value": 1000, "timestamp": 1000 },
+                "t48": { "value": 1000, "timestamp": 1000 }
+            },
+            "ccl": {
+                "CI": { "value": 1000, "timestamp": 1000 },
+                "t24": { "value": 1000, "timestamp": 1000 },
+                "t48": { "value": 1000, "timestamp": 1000 }
+            }
+        }
+    },
+    {
+        "ticker": { "ars": "MRCAO", "usd": "MRCAD", "ccl": "MRCAC" },
+        "lastPrice": {
+            "ars": {
+                "CI": { "value": 1000, "timestamp": 1000 },
+                "t24": { "value": 1000, "timestamp": 1000 },
+                "t48": { "value": 1000, "timestamp": 1000 }
+            },
+            "usd": {
+                "CI": { "value": 1000, "timestamp": 1000 },
+                "t24": { "value": 1000, "timestamp": 1000 },
+                "t48": { "value": 1000, "timestamp": 1000 }
+            },
+            "ccl": {
+                "CI": { "value": 1000, "timestamp": 1000 },
+                "t24": { "value": 1000, "timestamp": 1000 },
+                "t48": { "value": 1000, "timestamp": 1000 }
+            }
+        }
+    }
+]
