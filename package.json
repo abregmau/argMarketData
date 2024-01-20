@@ -2,7 +2,7 @@
     "name": "argMarketData",
     "version": "1.0.0",
     "description": "",
-    "main": "test.js",
+    "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -11,6 +11,8 @@
     "type": "module",
     "dependencies": {
         "google-auth-library": "^9.4.2",
-        "google-spreadsheet": "^4.1.1"
+        "google-spreadsheet": "^4.1.1",
+        "rofexjs": "github:matbarofex/jsRofex",
+        "winston": "^3.11.0"
     }
 }
