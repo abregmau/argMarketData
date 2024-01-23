@@ -62,14 +62,13 @@ class marketData {
                         // console.log(data_get);
                         resolve(parsedData);
                     } else {
-                        console.log("Error:");
-                        console.log(data_get);
-                        reject("Error fetching market data");
+                        console.log("Error fetching data: " + parsedData.description);
+                        reject(parsedData.description);
                     }
                 } catch (error) {
-                    console.log("Error parsing data:");
-                    console.log(error);
-                    reject("Error parsing market data");
+                    console.log("Error parsing data: " + error);
+                    console.log(typeof data_get);
+                    reject(error);
                 }
             });
         });
@@ -77,47 +76,51 @@ class marketData {
 
     async getAllMarketData(listTickers) {
         const terms = ["CI", "24hs", "48hs"];
-        const allData = await Promise.all(
-            listTickers.map(async (ticker) => {
-                const data = {
-                    ticker: { ars: ticker.ars, usd: ticker.usd },
-                    lastPrice: {
-                        ars: { CI: {}, t24: {}, t48: {} },
-                        usd: { CI: {}, t24: {}, t48: {} },
-                    },
-                };
+        const allData = [];
 
-                await Promise.all(
-                    terms.map(async (t) => {
-                        const dataARS = await this.getMarketData(ticker.ars, t);
-                        const dataUSD = await this.getMarketData(ticker.usd, t);
+        for (const ticker of listTickers) {
+            const data = {
+                ticker: { ars: ticker.ars, usd: ticker.usd },
+                lastPrice: {
+                    ars: { CI: {}, t24: {}, t48: {} },
+                    usd: { CI: {}, t24: {}, t48: {} },
+                },
+            };
 
-                        const updateLastPrice = (term) => {
-                            if (dataARS.marketData.LA !== null) {
-                                data.lastPrice.ars[term].value = dataARS.marketData.LA.price;
-                                data.lastPrice.ars[term].timestamp = dataARS.marketData.LA.date;
-                            }
-                            if (dataUSD.marketData.LA !== null) {
-                                data.lastPrice.usd[term].value = dataUSD.marketData.LA.price;
-                                data.lastPrice.usd[term].timestamp = dataUSD.marketData.LA.date;
-                            }
-                        };
+            for (const t of terms) {
+                try {
+                    const dataARS = await this.getMarketData(ticker.ars, t);
+                    const dataUSD = await this.getMarketData(ticker.usd, t);
 
-                        if (t === "CI") {
-                            updateLastPrice("CI");
+                    const updateLastPrice = (term) => {
+                        if (dataARS.marketData.LA !== null) {
+                            data.lastPrice.ars[term].value = dataARS.marketData.LA.price;
+                            data.lastPrice.ars[term].timestamp = dataARS.marketData.LA.date;
                         }
-                        if (t === "24hs") {
-                            updateLastPrice("t24");
+                        if (dataUSD.marketData.LA !== null) {
+                            data.lastPrice.usd[term].value = dataUSD.marketData.LA.price;
+                            data.lastPrice.usd[term].timestamp = dataUSD.marketData.LA.date;
                         }
-                        if (t === "48hs") {
-                            updateLastPrice("t48");
-                        }
-                    })
-                );
+                    };
 
-                return data;
-            })
-        );
+                    if (t === "CI") {
+                        updateLastPrice("CI");
+                    }
+                    if (t === "24hs") {
+                        updateLastPrice("t24");
+                    }
+                    if (t === "48hs") {
+                        updateLastPrice("t48");
+                    }
+                } catch (error) {
+                    console.error(`Error fetching market data ${ticker.ars}/${ticker.usd} - ${t}:`, error);
+                }
+
+                await new Promise((resolve) => setTimeout(resolve, 50));
+            }
+
+            allData.push(data);
+        }
 
         this.marketData = allData;
         return allData;
