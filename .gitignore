@@ -1,6 +1,6 @@
 # Folders
-test/*
-src/keys/*
+src/tests/*
+src/json/keys/*
 
 # NPM
 package-lock.json
