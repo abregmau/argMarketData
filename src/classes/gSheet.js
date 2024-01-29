@@ -3,29 +3,17 @@ import logger from "../utils/loggers/errorLog.js";
 import { JWT } from "google-auth-library";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 
-class gSheetONs {
-    constructor(sheetName) {
-        this.serviceAccountAuth = null;
-        this.sheetID = null;
+class gSheet {
+    constructor(sheetName, keyAPIs, keyGoogle) {
         this.sheetName = sheetName;
-    }
+        this.keyGoogle = keyGoogle;
 
-    async readKeyFile(dirSheetKey) {
-        const string = await fs.readFile(dirSheetKey, "utf-8");
-
-        const auth = JSON.parse(string);
-
+        this.sheetID = keyAPIs.sheetID;
         this.serviceAccountAuth = new JWT({
-            email: auth.client_email,
-            key: auth.private_key,
+            email: this.keyGoogle.client_email,
+            key: this.keyGoogle.private_key,
             scopes: ["https://www.googleapis.com/auth/spreadsheets"],
         });
-    }
-
-    async readSheetID(dirSheetID) {
-        const string = await fs.readFile(dirSheetID, "utf-8");
-
-        this.sheetID = JSON.parse(string).sheetID;
     }
 
     async updateSheet(marketData) {
@@ -50,4 +38,4 @@ class gSheetONs {
     }
 }
 
-export { gSheetONs };
+export { gSheet };

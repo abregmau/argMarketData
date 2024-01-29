@@ -12,3 +12,4 @@ user.cfg
 anon.*
 session.*
 test.js
+.env

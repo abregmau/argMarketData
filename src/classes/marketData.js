@@ -5,13 +5,13 @@ import { promises } from "dns";
 import { checkPrimeSync } from "crypto";
 
 class marketData {
-    constructor(broker, apiKey) {
-        this.keyBroker = apiKey.find((item) => item.broker === broker);
+    constructor(keyAPIs) {
+        this.keyAPIs = keyAPIs;
         this.marketData = {};
 
-        if (this.keyBroker.environment === "DEVELOPMENT") {
+        if (this.keyAPIs.environment === "DEVELOPMENT") {
             var envRofex = "reMarkets";
-        } else if (this.keyBroker.environment === "PRODUCTION") {
+        } else if (this.keyAPIs.environment === "PRODUCTION") {
             var envRofex = "production";
         } else {
             var envRofex = null;
@@ -20,14 +20,14 @@ class marketData {
 
         this.apiRofex = new jsRofex(envRofex);
 
-        if (this.keyBroker.environment === "PRODUCTION") {
-            this.apiRofex.base_url = this.keyBroker.url;
+        if (this.keyAPIs.environment === "PRODUCTION") {
+            this.apiRofex.base_url = this.keyAPIs.url;
         }
     }
 
     async login() {
         return new Promise((resolve, reject) => {
-            this.apiRofex.login(this.keyBroker.user, this.keyBroker.password, function (rta) {
+            this.apiRofex.login(this.keyAPIs.user, this.keyAPIs.password, function (rta) {
                 if (rta.status == "OK") {
                     console.log("Connected Successfully");
                     resolve();

@@ -1,17 +1,21 @@
 import { jsonFromFile } from "./utils/functions/jsonFromFile.js";
+import { keySelector } from "./utils/functions/keySelector.js";
 import { marketData } from "./classes/marketData.js";
 import { marketDataExample } from "./classes/marketDataExample.js";
-import { gSheetONs } from "./classes/gSheetONs.js";
+import { gSheet } from "./classes/gSheet.js";
 
-//Constants
-const dirSheetID = "./src/json/keys/sheetID.json";
-const dirSheetKey = "./src/json/keys/googleCloudKey.json";
-const apiPrimaryKey = await jsonFromFile("./src/json/keys/apiPrimaryKey.json");
+// JSON
+const keySelection = await jsonFromFile("./src/json/keys/keySelection.json");
+const keysArray = await jsonFromFile("./src/json/keys/keysArray.json");
+const keyGoogle = await jsonFromFile("./src/json/keys/googleCloudKey.json");
 const listTickers = await jsonFromFile("./src/json/data/listTickers.json");
 
+// Functions
+const keyAPIs = keySelector(keysArray, keySelection);
+
 // Classes
-const bmbSheetONs = new gSheetONs("liveMarket");
-var marketBMB = new marketData("BMB", apiPrimaryKey);
+const bmbSheet = new gSheet("liveMarket", keyAPIs, keyGoogle);
+var marketBMB = new marketData(keyAPIs);
 
 // Logic API Primary
 async function startMarketData() {
@@ -27,11 +31,9 @@ async function startMarketData() {
 
 // Logic Google Sheets
 async function startSheetGoogle() {
-    await bmbSheetONs.readSheetID(dirSheetID);
-    await bmbSheetONs.readKeyFile(dirSheetKey);
     setInterval(async () => {
-        // await bmbSheetONs.updateSheet(marketDataExample);
-        await bmbSheetONs.updateSheet(marketBMB.marketData);
+        // await bmbSheet.updateSheet(marketDataExample);
+        await bmbSheet.updateSheet(marketBMB.marketData);
         console.log("Update Google Sheets");
     }, 5000);
 }
