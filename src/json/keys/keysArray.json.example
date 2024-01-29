@@ -1,0 +1,27 @@
+[
+    {
+        "nameGroup": "production-BMB",
+        "environment": "PRODUCTION",
+        "user": "---",
+        "password": "---",
+        "url": "https://api.bull.xoms.com.ar",
+        "ws": "wss://api.bull.xoms.com.ar",
+        "sheetID": "---"
+    },
+    {
+        "nameGroup": "test-BMB",
+        "environment": "PRODUCTION",
+        "user": "---",
+        "password": "---",
+        "url": "https://api.bull.xoms.com.ar",
+        "ws": "wss://api.bull.xoms.com.ar",
+        "sheetID": "---"
+    },
+    {
+        "broker": "test-REMARKETS",
+        "environment": "DEVELOPMENT",
+        "user": "---",
+        "password": "---",
+        "sheetID": "---"
+    }
+]
