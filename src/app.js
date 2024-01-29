@@ -39,5 +39,7 @@ async function startSheetGoogle() {
 }
 
 // Main
-startMarketData();
-startSheetGoogle();
+// startMarketData();
+// startSheetGoogle();
+
+export { marketBMB, bmbSheet, listTickers };
